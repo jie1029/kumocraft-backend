@@ -41,12 +41,6 @@ app.post("/mail-send",(req,res)=>{
     console.log(mailTable);
     setTimeout(()=>{deleteCodeTable(mail)},300000);
 
-    // res.header("Access-Control-Allow-Origin", "*") 
-    // res.header(
-    //     "Access-Control-Allow-Headers",
-    //     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    // );
-
     let transporter = nodemailer.createTransport({
         service:"gmail",
         auth:{
