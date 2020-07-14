@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 const noticeSchema = require('../schemas/notice');
 const multer = require('multer');
-const getformatDate = require('../js/formatDate');
+const getFormatDate = require('../js/formatDate');
 router.use(express.static("images"));
-
 
 var imageStorage = multer.diskStorage({
     destination:function(req,file,callback){
@@ -14,7 +13,7 @@ var imageStorage = multer.diskStorage({
         //파일명 설정
         var date = req.body.date;
         var fileName = file.originalname;
-        var dateString = getformatDate(date);
+        var dateString = getFormatDate(date);
 
         // var mimeType;
 
@@ -56,7 +55,7 @@ router.post("/input",upload.single("img"),(req,res)=>{
     let contents = req.body.contents;
     let file = req.file;
     let date = req.body.date;
-    let dateString = getformatDate(date);
+    let dateString = getFormatDate(date);
     let image = dateString+'-'+file.originalname;
 
     const notice = new Notice({
@@ -77,5 +76,33 @@ router.post("/input",upload.single("img"),(req,res)=>{
     //     console.log(notice);
     // });
 });
+
+router.get("/show",(req,res)=>{
+    Notice.find({},{_id:true,title:true,writer:true,date:true})
+    .then((notice) => {
+        res.json({status:"success",notice:notice});
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.json({status:"fail"});
+    });
+});
+
+router.get("/detail/:_id",(req,res)=>{
+    let _id = req.params._id;
+    console.log(tid);
+    Notice.find({_id:_id})
+    .then((notice) => {
+        res.json({status:"success",notice:notice});
+    })
+    .catch((err)=>{
+        res.json({status:"fail"});
+    });
+
+});
+
+// router.delete("/test",()=>{
+//     console.log("delete다")
+// })
 
 module.exports = router;

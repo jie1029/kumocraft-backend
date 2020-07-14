@@ -7,7 +7,6 @@ connect();
 
 //post body 전달을 위해 body-parser이 있어야 한다고 함
 app.use(bodyParser.json());
-
 app.use((req, res, next) => {
     console.log('new request', req.method, req.path, new Date().toLocaleTimeString());
     next();
