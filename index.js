@@ -1,7 +1,6 @@
 var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var connect = require('./schemas');
 connect();
 
@@ -22,12 +21,12 @@ app.all("/*", (req, res, next) => {
     next();
 });
 
-var mailRouter = require('./router/mail');
-app.use('/mail', mailRouter);
+var accessRouter = require('./router/access');
+app.use('/access', accessRouter);
 var noticeRouter = require('./router/notice');
 app.use('/notice',noticeRouter);
-
-var User = require('./schemas/user');
+var adminRouter = require('./router/admin');
+app.use('/admin',adminRouter);
 
 app.get("/", (req, res) => {
 
@@ -42,30 +41,6 @@ app.get("/", (req, res) => {
     res.send("안녕")
 });
 
-
-app.post("/input-nick", (req, res) => {
-
-    User.find({ email: req.body.email })
-        .then((users) => {
-            console.log(users.length)
-            if (users.length != '0')
-                res.json({ status: "overlap", nick: users[0].nick });
-            else {
-                const user = new User({
-                    email: req.body.email,
-                    nick: req.body.nick
-                })
-                user.save((err) => {
-                    if (err) return handleError(err);
-                    res.json({ status: "success" });
-                })
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            res.json({ status: "fail" });
-        })
-})
 
 app.listen(80, function () {
     console.log("App is running on port 80");

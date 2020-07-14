@@ -4,8 +4,9 @@ const mailTable = require('../js/mailTable');
 const managerMail = require("../manager-mail.json");
 const nodemailer = require("nodemailer");
 const generateCode = require('../js/code.js');
+const User = require('../schemas/user');
 
-router.post("/send",(req,res)=>{
+router.post("/mail-send",(req,res)=>{
     let mail = req.body.email;
     let code = generateCode.randomCode();
 
@@ -44,7 +45,7 @@ router.post("/send",(req,res)=>{
 });
 
 
-router.post("/code",(req,res)=>{
+router.post("/input-code",(req,res)=>{
     console.log(req.body.code+req.body.email);
     console.log(mailTable);
     let inputCode = req.body.code;
@@ -62,6 +63,42 @@ router.post("/code",(req,res)=>{
         mailTable.delete(mail);
     }
     else res.json({status:"fail"});
-})
+});
 
-module.exports = router
+router.post("/input-nick", (req, res) => {
+
+    User.find({ email: req.body.email })
+        .then((users) => {
+            console.log(users.length)
+            if (users.length != '0')
+                res.json({ status: "overlap", nick: users[0].nick });
+            else {
+                const user = new User({
+                    email: req.body.email,
+                    nick: req.body.nick
+                })
+                user.save((err) => {
+                    if (err) return handleError(err);
+                    res.json({ status: "success" });
+                })
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({ status: "fail" });
+        })
+});
+
+router.get("/test", (req, res) => {
+
+    User.find({ }).count()
+        .then((users) => {
+            res.json(users)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({ status: "fail" });
+        })
+});
+
+module.exports = router;

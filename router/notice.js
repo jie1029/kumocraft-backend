@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const noticeSchema = require('../schemas/notice');
 const multer = require('multer');
+var Notice = require("../schemas/notice");
 const getFormatDate = require('../js/formatDate');
 router.use(express.static("images"));
 
@@ -42,14 +42,6 @@ var upload = multer({
     storage:imageStorage
 });
 
-router.post("/login",(req,res)=>{
-    let id = req.body.id;
-    let pw = req.body.pw;
-
-});
-
-var Notice = require("../schemas/notice");
-
 router.post("/input",upload.single("img"),(req,res)=>{
     let title = req.body.title;
     let contents = req.body.contents;
@@ -69,12 +61,7 @@ router.post("/input",upload.single("img"),(req,res)=>{
         if (err) return handleError(err);
         res.json({ status: "success" });
     })
-    
     res.json({ status: "fail" });
-    // Notice.find({})
-    // .then((notice)=>{
-    //     console.log(notice);
-    // });
 });
 
 router.get("/show",(req,res)=>{
@@ -100,9 +87,5 @@ router.get("/detail/:_id",(req,res)=>{
     });
 
 });
-
-// router.delete("/test",()=>{
-//     console.log("delete다")
-// })
 
 module.exports = router;
