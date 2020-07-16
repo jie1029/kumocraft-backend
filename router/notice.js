@@ -58,32 +58,31 @@ router.post("/input",upload.single("img"),(req,res)=>{
     });
 
     notice.save((err)=>{
-        if (err) return handleError(err);
-        res.json({ status: "success" });
+        if (err) res.json({status:"error"})
+        else res.json({ status: "success" });
     })
     res.json({ status: "fail" });
 });
 
 router.get("/show",(req,res)=>{
-    Notice.find({},{_id:true,title:true,writer:true,date:true})
-    .then((notice) => {
-        res.json({status:"success",notice:notice});
+    Notice.find({},{title:true,writer:true,date:true})
+    .then((notices) => {
+        res.json({status:"success",notices:notices});
     })
     .catch((err)=>{
         console.log(err);
-        res.json({status:"fail"});
+        res.json({status:"error"});
     });
 });
 
-router.get("/detail/:_id",(req,res)=>{
-    let _id = req.params._id;
-    console.log(tid);
+router.get("/detail/:id",(req,res)=>{
+    let _id = req.params.id;
     Notice.find({_id:_id})
     .then((notice) => {
         res.json({status:"success",notice:notice});
     })
     .catch((err)=>{
-        res.json({status:"fail"});
+        res.json({status:"error"});
     });
 
 });

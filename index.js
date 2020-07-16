@@ -29,7 +29,6 @@ var adminRouter = require('./router/admin');
 app.use('/admin',adminRouter);
 
 app.get("/", (req, res) => {
-
     // User.find({ email: "testEmail1" })
     //     .then((users) => {
     //         res.json({ users })
@@ -38,9 +37,8 @@ app.get("/", (req, res) => {
     //         console.log(err);
     //         next(err);
     //     })
-    res.send("안녕")
+    res.send("안녕");
 });
-
 
 app.listen(80, function () {
     console.log("App is running on port 80");

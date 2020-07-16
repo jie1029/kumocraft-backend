@@ -33,7 +33,7 @@ router.post("/mail-send",(req,res)=>{
     transporter.sendMail(mailOptions,(err,info)=>{  
         if(err){
             console.log(err); 
-            let resJson = {status:'fail', counter:5}
+            let resJson = {status:'error', counter:5}
             res.json(resJson);
         }
         else{
@@ -85,7 +85,7 @@ router.post("/input-nick", (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.json({ status: "fail" });
+            res.json({ status: "error" });
         })
 });
 
@@ -97,7 +97,7 @@ router.get("/test", (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.json({ status: "fail" });
+            res.json({ status: "error" });
         })
 });
 

@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
 const noticeSchema = new Schema({
-    _id:{
-        type:Schema.Types.ObjectId,
-        required: true,
-        unique: true
-    },
+    _id:Schema.Types.ObjectId,
     title:{
         type:String,
         required: true,
