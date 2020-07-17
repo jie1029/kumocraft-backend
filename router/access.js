@@ -13,7 +13,7 @@ router.post("/mail-send",(req,res)=>{
     console.log(mail+" "+code)
    
     mailTable.set(mail,code);
-    setTimeout(()=>{deleteCodeTable(mail)},300000);
+    setTimeout(()=>{mailTable.delete(mail)},300000);
 
     let transporter = nodemailer.createTransport({
         service:"gmail",
@@ -47,7 +47,6 @@ router.post("/mail-send",(req,res)=>{
 
 router.post("/input-code",(req,res)=>{
     console.log(req.body.code+req.body.email);
-    console.log(mailTable);
     let inputCode = req.body.code;
     let mail = req.body.email;
     let mailCode = mailTable.get(mail);

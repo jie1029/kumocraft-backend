@@ -2,25 +2,27 @@ const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
 const noticeSchema = new Schema({
-    _id:Schema.Types.ObjectId,
     title:{
         type:String,
         required: true,
     },
     contents:{
-        type:String,
-        required:true
+        type:String
     },
     image:{
         type:String,
+        default:null
     },
     writer:{
         type:String,
         default:"admin"
     },
     date:{
-        type:Date,
+        type:String,
         required:true
+    },
+    num:{
+        type:String
     }
 },{
     versionKey:false
