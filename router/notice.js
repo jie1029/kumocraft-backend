@@ -52,7 +52,7 @@ router.post("/input",verifyToken,upload.single("img"), (req, res, next) => {
         .catch((err) => {
             console.log(err);
             res.json({ status: "error" })
-            next();
+            
         });
 });
 
@@ -91,7 +91,7 @@ router.get("/detail/:id", (req, res) => {
         .catch((err) => {
             console.log(err);
             res.json({ status: "error" });
-            next(err);
+            
         });
 });
 

@@ -12,9 +12,8 @@ module.exports.createToken = function(req, res, next) {
                 },
                     secretKey.secret,
                     {
-                        expiresIn: '10m'
+                        expiresIn: '5m'
                     });
-                // res.cookie('admin', token);
                 res.json({
                     status: "success",
                     token: token

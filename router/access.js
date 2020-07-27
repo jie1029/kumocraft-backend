@@ -78,7 +78,7 @@ router.post("/input-nick", (req, res) => {
                 })
                 user.save((err) => {
                     if (err) {
-                        // console.log(err);
+                        console.log(err);
                         res.json({ status: "error" });
                     }
                     else
@@ -87,9 +87,9 @@ router.post("/input-nick", (req, res) => {
             }
         })
         .catch((err) => {
-            // console.log(err);
+            console.log(err);
             res.json({ status: "error" });
-            next();
+            
         })
 });
 
