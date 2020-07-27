@@ -27,6 +27,7 @@ var upload = multer({
 
 router.post("/input",verifyToken,upload.single("img"), (req, res, next) => {
 
+    // console.log(adminID);
     // res.locals.adminID = status.adminID;
     let title = req.body.title;
     let contents = req.body.contents;
