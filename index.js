@@ -1,11 +1,13 @@
-var express = require("express");
-var app = express();
-var bodyParser = require('body-parser');
-var connect = require('./schemas');
+const express = require("express");
+const app = express();
+const bodyParser = require('body-parser');
+const connect = require('./schemas');
+const multer = require('multer');
 connect();
 
 //post body 전달을 위해 body-parser이 있어야 한다고 함
 app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     console.log('new request', req.method, req.path, new Date().toLocaleTimeString());
     next();

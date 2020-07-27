@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbConfig = require('../db_config.json');
+const dbConfig = require('../config/db_config.json');
 module.exports = () => {
     const connet = () => {
         if (process.env.NODE_ENV !== 'production') {

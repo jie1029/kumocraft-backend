@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
+// const multer = require('multer');
 var Notice = require("../schemas/notice");
 const config = require("../js/config");
+const multer = require("multer");
 router.use(express.static("images"));
+const {verifyToken} = require("./middlewares/authorization");
 
 var imageStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -13,10 +15,8 @@ var imageStorage = multer.diskStorage({
         //파일명 설정
         var fileDate = req.body.fileName;
         var fileName = file.originalname;
-        console.log("multer " + file);
-        console.log("multer " + fileDate);
         callback(null, fileDate + '_' + fileName);
-        
+
     }
 })
 
@@ -25,23 +25,18 @@ var upload = multer({
 });
 
 
-router.post("/input", upload.single("img"), (req, res, next) => {
+router.post("/input",verifyToken,upload.single("img"), (req, res, next) => {
+
+    // res.locals.adminID = status.adminID;
     let title = req.body.title;
     let contents = req.body.contents;
     let file = req.file;
     let date = req.body.date;
     let fileDate = req.body.fileName;
-    // console.log(req.body);
-    console.log("라우터 " + date);
-    console.log("라우터 " + fileDate);
-    console.log("라우터 " + file);
-    // console.log(file)
     let image;
     if (file != undefined)
         image = fileDate + '_' + file.originalname;
     else image = null
-    // console.log(file.originalname);
-    console.log(image);
 
     const notice = new Notice({
         title: title,
@@ -57,9 +52,8 @@ router.post("/input", upload.single("img"), (req, res, next) => {
         .catch((err) => {
             console.log(err);
             res.json({ status: "error" })
-            next(err);
-        })
-
+            next();
+        });
 });
 
 router.get("/show/:page", (req, res) => {
