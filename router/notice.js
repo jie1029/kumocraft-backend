@@ -49,13 +49,27 @@ router.post("/input",verifyToken,upload.single("img"), (req, res, next) => {
     notice.save()
         .then(() => {
             res.json({ status: "success" });
-        })
+                    })
         .catch((err) => {
             console.log(err);
             res.json({ status: "error" })
             
         });
 });
+
+router.delete("/delete",verifyToken,(req,res)=>{
+    
+    Notice.remove({_id:req.body.noticeID})
+    .then(()=>{
+        res.json({status:"success"});
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.json({status:"error"});
+    })
+   
+
+})
 
 router.get("/show/:page", (req, res) => {
     var page = req.params.page;

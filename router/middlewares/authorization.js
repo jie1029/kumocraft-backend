@@ -4,6 +4,7 @@ const secretKey = require("../../config/jwt");
 exports.verifyToken = (req,res,next) =>{
     
     // const clientToken = req.cookies.user;
+    console.log(req.body);
     const token = req.header('token');
     console.log(token)
     try {

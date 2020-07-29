@@ -17,8 +17,9 @@ app.all("/*", (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization, token"
     );
+    res.header("Access-Control-Allow-Methods","*");
     // 기타 헤더 설정
     next();
 });

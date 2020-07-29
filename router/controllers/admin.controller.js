@@ -12,7 +12,7 @@ module.exports.createToken = function(req, res, next) {
                 },
                     secretKey.secret,
                     {
-                        expiresIn: '5m'
+                        expiresIn: '1h'
                     });
                 res.json({
                     status: "success",
