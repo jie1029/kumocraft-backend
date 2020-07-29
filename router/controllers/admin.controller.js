@@ -26,8 +26,7 @@ module.exports.createToken = function(req, res, next) {
             }
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             res.json({status:"error"});
-            
         });
 }

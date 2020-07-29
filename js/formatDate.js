@@ -10,9 +10,7 @@ function getFormatDate(date){
     minutes = minutes >= 10 ? minutes: '0'+minutes;
     let seconds = date.getSeconds();
     seconds = seconds >= 10 ? seconds: '0'+seconds
-    let milliseconds = date.getMilliseconds();
-    milliseconds = milliseconds >= 10 ? milliseconds: '0'+milliseconds;
-    return year+'-'+month+'-'+day+'-'+hour+'-'+minutes+'-'+seconds+'-'+milliseconds;
+    return year+'-'+month+'-'+day+' '+hour+' : '+minutes+' : '+seconds;
 }
 
 module.exports = getFormatDate;

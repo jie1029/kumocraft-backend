@@ -51,7 +51,7 @@ router.post("/input",verifyToken,upload.single("img"), (req, res, next) => {
             res.json({ status: "success" });
                     })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             res.json({ status: "error" })
             
         });
@@ -64,7 +64,7 @@ router.delete("/delete",verifyToken,(req,res)=>{
         res.json({status:"success"});
     })
     .catch((err)=>{
-        console.log(err);
+        // console.log(err);
         res.json({status:"error"});
     })
    
@@ -73,7 +73,6 @@ router.delete("/delete",verifyToken,(req,res)=>{
 
 router.get("/show/:page", (req, res) => {
     var page = req.params.page;
-    console.log(req.params.page);
     Notice.find({}).count()
         .then((count) => {
             Notice.find({}, { title: true, writer: true, date: true })
@@ -90,7 +89,6 @@ router.get("/show/:page", (req, res) => {
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     res.json({ status: "error" });
                 });
         });
@@ -104,9 +102,8 @@ router.get("/detail/:id", (req, res) => {
             res.json({ status: "success", notice: notice[0] });
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             res.json({ status: "error" });
-            
         });
 });
 
